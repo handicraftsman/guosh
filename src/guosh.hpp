@@ -1,6 +1,8 @@
 #pragma once
 
 #include <iostream>
+#include <fstream>
+#include <mutex>
 #include <string>
 
 namespace Guosh {
@@ -22,6 +24,9 @@ public:
 
   bool operator==(Logger&);
 
+  void enable_file_logging(std::string directory = "./", std::string prefix = "log");
+  void disable_file_logging();
+
   void write(std::string message, LogLevel level);
   void write(std::string message);
 
@@ -37,10 +42,14 @@ public:
   LogLevel level;
   std::string iochars;
 
+  std::string logging_directory;
+  std::string fprefix;
+  bool should_log_to_files;
+
   static LogLevel main_level;
 
 private:
-  std::string format(std::string message, LogLevel level);
+  std::string format(std::string message, std::string dt, LogLevel level, bool colored = true);
 };
 
 }

@@ -3,7 +3,8 @@
 int main() {
   guosh_set_main_level(GuoshLogLevel_DEBUG);
   GuoshLogger* log = guosh_logger_new("log", GuoshLogLevel_INFO);
-  
+  guosh_logger_enable_file_logging(log, "./", "test-c");
+
   guosh_logger_debug(log, "debug");
   guosh_logger_io(log, "io");
   guosh_logger_info(log, "info");

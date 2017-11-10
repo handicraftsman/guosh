@@ -3,6 +3,7 @@
 int main() {
   Guosh::Logger::main_level = Guosh::LogLevel::DEBUG;
   Guosh::Logger log;
+  log.enable_file_logging("./", "test-c++");
 
   log.debug("debug");
   log.io("io");

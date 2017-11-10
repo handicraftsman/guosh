@@ -17,6 +17,8 @@ GuoshLogLevel guosh_get_main_level();
 
 GuoshLogger* guosh_logger_new(char* name, GuoshLogLevel level);
 void guosh_logger_destroy(GuoshLogger* logger);
+void guosh_logger_enable_file_logging(GuoshLogger* logger, const char* directory, const char* prefix);
+void guosh_logger_disable_file_logging(GuoshLogger* logger);
 void guosh_logger_set_iochars(GuoshLogger* logger, const char* chars);
 const char* guosh_logger_get_iochars(GuoshLogger* logger);
 void guosh_logger_set_name(GuoshLogger* logger, const char* name);

@@ -14,6 +14,14 @@ Guosh::Logger* guosh_logger_new(char* name, Guosh::LogLevel level) {
   return new Guosh::Logger(std::string(name), level);
 }
 
+void guosh_logger_enable_file_logging(Guosh::Logger* logger, const char* directory, const char* prefix) {
+  logger->enable_file_logging(std::string(directory), std::string(prefix));
+}
+
+void guosh_logger_disable_file_logging(Guosh::Logger* logger) {
+  logger->disable_file_logging();
+}
+
 void guosh_logger_destroy(Guosh::Logger* logger) {
   delete logger;
 }
