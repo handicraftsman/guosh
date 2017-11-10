@@ -19,7 +19,7 @@ bool Guosh::Logger::operator==(Guosh::Logger& other) {
 
 void Guosh::Logger::write(std::string message, Guosh::LogLevel level) {
   if (level >= Guosh::Logger::main_level) {
-    std::cout << this->format(message, level) << std::endl;
+    std::cerr << this->format(message, level) << std::endl;
   }
 }
 
