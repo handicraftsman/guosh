@@ -3,7 +3,7 @@
 ## Installing
 
 ```bash
-$ git clone https://github.com/handicraftsman/guosh/ -b v0.2.0
+$ git clone https://github.com/handicraftsman/guosh/ -b v0.2.1
 $ cd guosh
 $ mkdir build
 $ cd build

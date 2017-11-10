@@ -40,7 +40,7 @@ void Guosh::Logger::write(std::string message, Guosh::LogLevel level) {
       if (filename != new_filename) {
         file.close();
         filename = new_filename;
-        file.open(filename);
+        file.open(logging_directory + "/" + filename, std::ios_base::app);
       }
       std::string dat = this->format(message, dt, level, false);
       file << dat << std::endl;
