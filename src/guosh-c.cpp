@@ -26,6 +26,22 @@ const char* guosh_logger_get_iochars(Guosh::Logger* logger) {
   return logger->iochars.c_str();
 }
 
+void guosh_logger_set_name(Guosh::Logger* logger, const char* name) {
+  logger->name = std::string(name);
+}
+
+const char* guosh_logger_get_name(Guosh::Logger* logger) {
+  return logger->name.c_str();
+}
+
+void guosh_logger_set_level(Guosh::Logger* logger, Guosh::LogLevel level) {
+  logger->level = level;
+}
+
+Guosh::LogLevel guosh_logger_get_level(Guosh::Logger* logger) {
+  return logger->level;
+}
+
 void guosh_logger_write(Guosh::Logger* logger, char* message) {
   logger->write(std::string(message));
 }

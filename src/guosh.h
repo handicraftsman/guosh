@@ -17,8 +17,12 @@ GuoshLogLevel guosh_get_main_level();
 
 GuoshLogger* guosh_logger_new(char* name, GuoshLogLevel level);
 void guosh_logger_destroy(GuoshLogger* logger);
-void guosh_logger_set_iochars(GuoshLogger* log, const char* chars);
-const char* guosh_logger_get_iochars(GuoshLogger* log);
+void guosh_logger_set_iochars(GuoshLogger* logger, const char* chars);
+const char* guosh_logger_get_iochars(GuoshLogger* logger);
+void guosh_logger_set_name(GuoshLogger* logger, const char* name);
+const char* guosh_logger_get_name(GuoshLogger* logger);
+void guosh_logger_set_level(GuoshLogger* logger, GuoshLogLevel level);
+GuoshLogLevel guosh_logger_get_level(GuoshLogger* logger);
 void guosh_logger_write(GuoshLogger* logger, char* message);
 void guosh_logger_writel(GuoshLogger* logger, char* message, GuoshLogLevel level);
 void guosh_logger_debug(GuoshLogger* logger, char* message);
