@@ -1,6 +1,7 @@
 #include <guosh.hpp>
 
 Guosh::LogLevel Guosh::Logger::main_level = Guosh::LogLevel::INFO;
+Guosh::LogLevel Guosh::Logger::main_file_level = Guosh::LogLevel::WARNING;
 
 Guosh::Logger::Logger(std::string _name, Guosh::LogLevel _level)
 : name(_name)
@@ -25,14 +26,14 @@ void Guosh::Logger::write(std::string message, Guosh::LogLevel level) {
   static std::ofstream file;
   static std::string filename;
 
+  mtx.lock();
+  time_t now = time(0);
+  std::string dt = std::string(ctime(&now));
+  dt.pop_back();
   if (level >= Guosh::Logger::main_level) {
-    mtx.lock();
-    time_t now = time(0);
-    std::string dt = std::string(ctime(&now));
-    dt.pop_back();
-
     std::cerr << this->format(message, dt, level) << std::endl;
-
+  }
+  if (level >= Guosh::Logger::main_file_level) {
     if (should_log_to_files) {
       char* raw_new_f = (char*) malloc(sizeof(16 + fprefix.size()));
       strftime(raw_new_f, 16 + fprefix.size(), (fprefix + "-%d.%m.%Y.log").c_str(), localtime(&now));
@@ -44,6 +45,7 @@ void Guosh::Logger::write(std::string message, Guosh::LogLevel level) {
       }
       std::string dat = this->format(message, dt, level, false);
       file << dat << std::endl;
+      file.flush();
       free(raw_new_f);
     }
     mtx.unlock();

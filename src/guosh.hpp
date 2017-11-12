@@ -47,6 +47,7 @@ public:
   bool should_log_to_files;
 
   static LogLevel main_level;
+  static LogLevel main_file_level;
 
 private:
   std::string format(std::string message, std::string dt, LogLevel level, bool colored = true);

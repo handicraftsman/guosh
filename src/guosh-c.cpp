@@ -10,6 +10,14 @@ Guosh::LogLevel guosh_get_main_level(Guosh::LogLevel level) {
   return Guosh::Logger::main_level;
 }
 
+void guosh_set_file_main_level(Guosh::LogLevel level) {
+  Guosh::Logger::main_file_level = level;
+}
+
+Guosh::LogLevel guosh_get_file_main_level(Guosh::LogLevel level) {
+  return Guosh::Logger::main_file_level;
+}
+
 Guosh::Logger* guosh_logger_new(char* name, Guosh::LogLevel level) {
   return new Guosh::Logger(std::string(name), level);
 }
