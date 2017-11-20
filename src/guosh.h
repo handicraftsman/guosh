@@ -14,8 +14,8 @@ typedef enum GuoshLogLevel {
 
 void guosh_set_main_level(GuoshLogLevel level);
 GuoshLogLevel guosh_get_main_level();
-void guosh_set_main_file_level(GuoshLogLevel level);
-GuoshLogLevel guosh_get_main_file_level();
+void guosh_set_file_main_level(GuoshLogLevel level);
+GuoshLogLevel guosh_get_file_main_level();
 
 GuoshLogger* guosh_logger_new(char* name, GuoshLogLevel level);
 void guosh_logger_destroy(GuoshLogger* logger);
