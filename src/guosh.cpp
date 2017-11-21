@@ -48,8 +48,8 @@ void Guosh::Logger::write(std::string message, Guosh::LogLevel level) {
       file.flush();
       free(raw_new_f);
     }
-    mtx.unlock();
   }
+  mtx.unlock();
 }
 
 void Guosh::Logger::enable_file_logging(std::string directory, std::string prefix) {
