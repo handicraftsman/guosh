@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdio>
+#include <cstdarg>
 #include <iostream>
 #include <fstream>
 #include <mutex>
@@ -27,16 +29,17 @@ public:
   void enable_file_logging(std::string directory = "./", std::string prefix = "log");
   void disable_file_logging();
 
-  void write(std::string message, LogLevel level);
-  void write(std::string message);
+  void write(std::string message, Guosh::LogLevel level, va_list args);
+  void write(std::string message, Guosh::LogLevel level, ...);
+  void write(std::string message, ...);
 
-  inline void debug(std::string message) { this->write(message, LogLevel::DEBUG); }
-  inline void io(std::string message) { this->write(message, LogLevel::IO); }
-  inline void info(std::string message) { this->write(message, LogLevel::INFO); }
-  inline void warning(std::string message) { this->write(message, LogLevel::WARNING); }
-  inline void error(std::string message) { this->write(message, LogLevel::ERROR); }
-  inline void important(std::string message) { this->write(message, LogLevel::IMPORTANT); }
-  inline void critical(std::string message) { this->write(message, LogLevel::CRITICAL); }
+  void debug(std::string message, ...);
+  void io(std::string message, ...);
+  void info(std::string message, ...);
+  void warning(std::string message, ...);
+  void error(std::string message, ...);
+  void important(std::string message, ...);
+  void critical(std::string message, ...);
 
   std::string name;
   LogLevel level;
@@ -50,7 +53,7 @@ public:
   static LogLevel main_file_level;
 
 private:
-  std::string format(std::string message, std::string dt, LogLevel level, bool colored = true);
+  std::string format(std::string message, std::string dt, LogLevel level, va_list args, bool colored = true);
 };
 
 }

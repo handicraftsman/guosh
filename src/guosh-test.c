@@ -11,7 +11,7 @@ int main() {
   guosh_logger_warning(log, "warning");
   guosh_logger_error(log, "error");
   guosh_logger_important(log, "important");
-  guosh_logger_critical(log, "critical");
+  guosh_logger_critical(log, "critical %s bar", "foo");
   
   guosh_logger_destroy(log);
   return 0;

@@ -11,5 +11,5 @@ int main() {
   log.warning("warning");
   log.error("error");
   log.important("important");
-  log.critical("critical");
+  log.critical("critical %s bar", "foo");
 }

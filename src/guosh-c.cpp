@@ -66,32 +66,53 @@ void guosh_logger_writel(Guosh::Logger* logger, char* message, Guosh::LogLevel l
   logger->write(std::string(message), level);
 }
 
-void guosh_logger_debug(Guosh::Logger* logger, char* message) {
-  logger->debug(std::string(message));
+void guosh_logger_debug(Guosh::Logger* logger, char* message, ...) {
+  va_list args;
+  va_start(args, message);
+  logger->write(std::string(message), Guosh::LogLevel::DEBUG, args);
+  va_end(args);
 }
 
-void guosh_logger_io(Guosh::Logger* logger, char* message) {
-  logger->io(std::string(message));
+void guosh_logger_io(Guosh::Logger* logger, char* message, ...) {
+  va_list args;
+  va_start(args, message);
+  logger->write(std::string(message), Guosh::LogLevel::IO, args);
+  va_end(args);
 }
 
-void guosh_logger_info(Guosh::Logger* logger, char* message) {
-  logger->info(std::string(message));
+void guosh_logger_info(Guosh::Logger* logger, char* message, ...) {
+  va_list args;
+  va_start(args, message);
+  logger->write(std::string(message), Guosh::LogLevel::INFO, args);
+  va_end(args);
 }
 
-void guosh_logger_warning(Guosh::Logger* logger, char* message) {
-  logger->warning(std::string(message));
+void guosh_logger_warning(Guosh::Logger* logger, char* message, ...) {
+  va_list args;
+  va_start(args, message);
+  logger->write(std::string(message), Guosh::LogLevel::DEBUG, args);
+  va_end(args);
 }
 
-void guosh_logger_error(Guosh::Logger* logger, char* message) {
-  logger->error(std::string(message));
+void guosh_logger_error(Guosh::Logger* logger, char* message, ...) {
+  va_list args;
+  va_start(args, message);
+  logger->write(std::string(message), Guosh::LogLevel::ERROR, args);
+  va_end(args);
 }
 
-void guosh_logger_important(Guosh::Logger* logger, char* message) {
-  logger->important(std::string(message));
+void guosh_logger_important(Guosh::Logger* logger, char* message, ...) {
+  va_list args;
+  va_start(args, message);
+  logger->write(std::string(message), Guosh::LogLevel::IMPORTANT, args);
+  va_end(args);
 }
 
-void guosh_logger_critical(Guosh::Logger* logger, char* message) {
-  logger->critical(std::string(message));
+void guosh_logger_critical(Guosh::Logger* logger, char* message, ...) {
+  va_list args;
+  va_start(args, message);
+  logger->write(std::string(message), Guosh::LogLevel::CRITICAL, args);
+  va_end(args);
 }
 
 }

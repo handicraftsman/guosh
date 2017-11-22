@@ -21,17 +21,18 @@ bool Guosh::Logger::operator==(Guosh::Logger& other) {
   return this->name == other.name && this->level == other.level;
 }
 
-void Guosh::Logger::write(std::string message, Guosh::LogLevel level) {
+void Guosh::Logger::write(std::string message, Guosh::LogLevel level, va_list args) {
   static std::mutex mtx;
   static std::ofstream file;
   static std::string filename;
 
   mtx.lock();
+
   time_t now = time(0);
   std::string dt = std::string(ctime(&now));
   dt.pop_back();
   if (level >= Guosh::Logger::main_level) {
-    std::cerr << this->format(message, dt, level) << std::endl;
+    std::cerr << this->format(message, dt, level, args, true) << std::endl;
   }
   if (level >= Guosh::Logger::main_file_level) {
     if (should_log_to_files) {
@@ -43,13 +44,28 @@ void Guosh::Logger::write(std::string message, Guosh::LogLevel level) {
         filename = new_filename;
         file.open(logging_directory + "/" + filename, std::ios_base::app);
       }
-      std::string dat = this->format(message, dt, level, false);
+      std::string dat = this->format(message, dt, level, args, false);
       file << dat << std::endl;
       file.flush();
       free(raw_new_f);
     }
   }
+
   mtx.unlock();
+}
+
+void Guosh::Logger::write(std::string message, Guosh::LogLevel level, ...) {
+  va_list args;
+  va_start(args, level);
+  this->write(message, level, args);
+  va_end(args);
+}
+
+void Guosh::Logger::write(std::string message, ...) {
+  va_list args;
+  va_start(args, message);
+  this->write(message, this->level, args);
+  va_end(args);
 }
 
 void Guosh::Logger::enable_file_logging(std::string directory, std::string prefix) {
@@ -62,11 +78,15 @@ void Guosh::Logger::disable_file_logging() {
   should_log_to_files = false;
 }
 
-void Guosh::Logger::write(std::string message) {
-  this->write(message, this->level);
-}
+std::string Guosh::Logger::format(std::string _message, std::string dt, Guosh::LogLevel level, va_list args, bool colored) {
+  va_list la;
+  va_copy(la, args);
 
-std::string Guosh::Logger::format(std::string message, std::string dt, Guosh::LogLevel level, bool colored) {
+  char* cmessage = NULL;
+  vasprintf(&cmessage, _message.c_str(), la);
+  std::string message = std::string(cmessage);
+  free(cmessage);
+
   // Get level chars
   std::string lvl_chars = "UNK";
   std::string lvl_color = "";
@@ -141,4 +161,53 @@ std::string Guosh::Logger::format(std::string message, std::string dt, Guosh::Lo
     + message
     ;
   }
+}
+
+void Guosh::Logger::debug(std::string message, ...) {
+  va_list args;
+  va_start(args, message);
+  this->write(message, LogLevel::DEBUG, args); 
+  va_end(args);
+}
+
+void Guosh::Logger::io(std::string message, ...) {
+  va_list args;
+  va_start(args, message);
+  this->write(message, LogLevel::IO, args); 
+  va_end(args);
+}
+
+void Guosh::Logger::info(std::string message, ...) {
+  va_list args;
+  va_start(args, message);
+  this->write(message, LogLevel::INFO, args); 
+  va_end(args);
+}
+
+void Guosh::Logger::warning(std::string message, ...) {
+  va_list args;
+  va_start(args, message);
+  this->write(message, LogLevel::WARNING, args); 
+  va_end(args);
+}
+
+void Guosh::Logger::error(std::string message, ...) {
+  va_list args;
+  va_start(args, message);
+  this->write(message, LogLevel::ERROR, args); 
+  va_end(args);
+}
+
+void Guosh::Logger::important(std::string message, ...) {
+  va_list args;
+  va_start(args, message);
+  this->write(message, LogLevel::IMPORTANT, args); 
+  va_end(args);
+}
+
+void Guosh::Logger::critical(std::string message, ...) {
+  va_list args;
+  va_start(args, message);
+  this->write(message, LogLevel::CRITICAL, args); 
+  va_end(args);
 }
