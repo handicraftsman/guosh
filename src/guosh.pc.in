@@ -1,5 +1,5 @@
 Name: guosh
 Description: A simple logger for C/++
-Version: 0.3.1
+Version: 0.4.0
 Libs: -L${CMAKE_INSTALL_PREFIX}/lib -lguosh -lstdc++
 Cflags: -I${CMAKE_INSTALL_PREFIX}/include

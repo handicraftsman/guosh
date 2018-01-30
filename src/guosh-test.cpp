@@ -5,6 +5,8 @@ int main() {
   Guosh::Logger log;
   log.enable_file_logging("./", "test-c++");
 
+  log.write("write()");
+  log("operator()");
   log.debug("debug");
   log.io("io");
   log.info("info");

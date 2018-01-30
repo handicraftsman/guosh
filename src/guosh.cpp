@@ -68,6 +68,13 @@ void Guosh::Logger::write(std::string message, ...) {
   va_end(args);
 }
 
+void Guosh::Logger::operator()(std::string message, ...) {
+  va_list args;
+  va_start(args, message);
+  this->write(message, this->level, args);
+  va_end(args);
+}
+
 void Guosh::Logger::enable_file_logging(std::string directory, std::string prefix) {
   logging_directory = directory;
   fprefix = prefix;

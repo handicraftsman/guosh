@@ -32,6 +32,7 @@ public:
   void write(std::string message, Guosh::LogLevel level, va_list args);
   void write(std::string message, Guosh::LogLevel level, ...);
   void write(std::string message, ...);
+  void operator()(std::string message, ...);
 
   void debug(std::string message, ...);
   void io(std::string message, ...);
