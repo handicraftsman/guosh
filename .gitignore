@@ -1,5 +1,7 @@
 /.particlepm
 /dist
 /*.so
+/src/*.so
 /*.o
+/src/*.o
 /build
