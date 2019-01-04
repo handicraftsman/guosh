@@ -1,4 +1,5 @@
 /.particlepm
+/dumbcpm-*
 /dist
 /*.so
 /src/*.so

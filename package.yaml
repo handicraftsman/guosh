@@ -1,0 +1,30 @@
+name: guosh
+version: 0.4.3
+description: "A simple logger for C/++"
+
+git-repo: "https://github.com/handicraftsman/guosh"
+git-tag: v0.4.3
+
+targets:
+  guosh:
+    type: library
+    sources:
+      - "src/guosh.cpp"
+      - "src/guosh-c.cpp"
+    include-dirs:
+      - "src/"
+    cpp: "c++11"
+  guosh-test-cpp:
+    type: executable
+    sources:
+      - "src/guosh-test.cpp"
+    cpp: "c++11"
+    link:
+      - guosh/guosh
+  guosh-test-c:
+    type: executable
+    sources:
+      - "src/guosh-test.c"
+    c: "c11"
+    link:
+      - guosh/guosh
